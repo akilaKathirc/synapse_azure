@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "USE gold_db\nGO\nCREATE OR ALTER PROC CreateSQLServerlessView_gold @ViewName nvarchar(100)\nAS\nBEGIN\n    DECLARE @statement NVARCHAR(MAX);\n\n    SET @statement = N'\n    CREATE OR ALTER VIEW ' + QUOTENAME(@ViewName) + N' AS\n    SELECT *\n    FROM\n    OPENROWSET(\n        BULK ''https://mottadeproj.dfs.core.windows.net/gold/Sales/' + @ViewName + '/'',\n        FORMAT = ''PARQUET''\n    ) AS [result];';\n\n    EXEC (@statement);\nEND\nGO\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "gold_db",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

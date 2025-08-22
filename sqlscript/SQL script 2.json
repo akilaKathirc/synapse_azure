@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW SalesLT_CountryRegionCurrency AS\nSELECT\nTOP 100 *\nFROM\nOPENROWSET(\nBULK 'https://mottadeproj.dfs.core.windows.net/gold/Sales/CountryRegionCurrency/',\nFORMAT = 'PARQUET'\n) AS [result];\n\n\nSELECT * FROM SalesLT_CountryRegionCurrency\n\n\nDROP STOREDPROCEDURE CreateSQLServerlessView_gold",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "gold_db",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
